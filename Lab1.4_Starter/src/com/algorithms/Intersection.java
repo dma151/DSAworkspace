@@ -1,9 +1,8 @@
 package com.algorithms;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Intersection {
 
@@ -38,8 +37,21 @@ public class Intersection {
         return result;
 	}
 
+    public List<Integer> intersectionFastHash(int[]a, int[]b) {
+        Set<Integer> setA = IntStream
+                .of(a)
+                .boxed()
+                .collect(Collectors.toSet());
+        return IntStream
+                .of(b)
+                .boxed()
+                .filter((value) -> setA.contains(value))
+                .collect(Collectors.toList());
+    }
+
     public static void main(String args[]) {
         Intersection simpleIntersection = new Intersection();
         System.out.println(simpleIntersection.intersectionFast(new int[]{4, 7, 5, 2, 3}, new int[]{4, 2, 3, 9, 1}));
+        System.out.println(simpleIntersection.intersectionFastHash(new int[]{4, 7, 5, 2, 3}, new int[]{4, 2, 3, 9, 1}));
     }
 }
